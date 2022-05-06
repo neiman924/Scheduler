@@ -1,4 +1,14 @@
 
+// var Button1 = $('#saveBtn0');
+// var Button2 = $('#saveBtn1');
+// var Button3 = $('#saveBtn2');
+// var Button4 = $('#saveBtn3');
+// var Button5 = $('#saveBtn4');
+// var Button6 = $('#saveBtn5');
+// var Button7 = $('#saveBtn6');
+// var Button8 = $('#saveBtn7');
+// var Button9 = $('#saveBtn8');
+
 var hourDays = [
   {
   h:09,
@@ -46,101 +56,18 @@ var localSchdularObj = [{
 var timeDisplayEl = $('#time-display');
 var projectDisplayEl = $('#project-display');
 var projectModalEl = $('#project-modal');
-var projectFormEl = $('#project-form');
-var projectNameInputEl = $('#project-name-input');
-// var projectTypeInputEl = $('#project-type-input');
-// var hourlyRateInputEl = $('#hourly-rate-input');
-// var dueDateInputEl = $('#due-date-input');
 
-// handle displaying the time
+var projectFormEl = $('#text-area');
+
+var projectNameInputEl = $('#project-name-input');
+
 function displayTime() {
   var rightNow = moment().format('MMM DD, YYYY [at] hh:mm:ss a');
   timeDisplayEl.text(rightNow);
 }
 
-// handle printing project data to the page
-function printProjectData(name, type, hourlyRate, dueDate) {
-  for(var j=1; j<=10; j++)
-  {
-    document.write("<th><label style='color:red;'>"+i+"</label></th>");
-  }
-  var projectRowEl = $('<tr>');
 
-  var projectNameTdEl = $('<td>').addClass('p-2').text(name);
 
-  // var projectTypeTdEl = $('<td>').addClass('p-2').text(type);
-
-  // var rateTdEl = $('<td>').addClass('p-2').text(hourlyRate);
-
-  // var dueDateTdEl = $('<td>').addClass('p-2').text(dueDate);
-
-  // var daysToDate = moment(dueDate, 'MM/DD/YYYY').diff(moment(), 'days');
-  // var daysLeftTdEl = $('<td>').addClass('p-2').text(daysToDate);
-
-  // var totalEarnings = calculateTotalEarnings(hourlyRate, daysToDate);
-
-  // You can also chain methods onto new lines to keep code clean
-  // var totalTdEl = $('<td>')
-  //   .addClass('p-2')
-  //   .text('$' + totalEarnings);
-
-  var deleteProjectBtn = $('<td>')
-    .addClass('p-2 delete-project-btn text-center')
-    .text('X');
-
-  // By listing each `<td>` variable as an argument, each one will be appended in that order
-  // projectRowEl.append(
-  //   projectNameTdEl,
-  //   projectTypeTdEl,
-  //   rateTdEl,
-  //   dueDateTdEl,
-  //   daysLeftTdEl,
-  //   totalTdEl,
-  //   deleteProjectBtn
-  // );
-  projectRowEl.append(
-    projectNameTdEl,
-    deleteProjectBtn
-  );
-
-  projectDisplayEl.append(projectRowEl);
-
-  projectModalEl.modal('hide');
-}
-
-// function calculateTotalEarnings(rate, days) {
-//   var dailyTotal = rate * 8;
-//   var total = dailyTotal * days;
-//   return total;
-// }
-
-function handleDeleteProject(event) {
-  console.log(event.target);
-  var btnClicked = $(event.target);
-  btnClicked.parent('tr').remove();
-}
-
-// handle project form submission
-function handleProjectFormSubmit(event) {
-  event.preventDefault();
-
-  var projectName = projectNameInputEl.val().trim();
-
-  // var projectType = projectTypeInputEl.val().trim();
-  // var hourlyRate = hourlyRateInputEl.val().trim();
-  // var dueDate = dueDateInputEl.val().trim();
-
-  // printProjectData(projectName, projectType, hourlyRate, dueDate);
-  printProjectData(projectName);
-
-  projectFormEl[0].reset();
-}
-
-projectFormEl.on('submit', handleProjectFormSubmit);
-projectDisplayEl.on('click', '.delete-project-btn', handleDeleteProject);
-// dueDateInputEl.datepicker({ minDate: 1 });
-
-setInterval(displayTime, 1000);
 
 
 //-------------------------------------
@@ -150,9 +77,11 @@ function createDayTable(){
   var row;
   var dataCell;
   var hourNow = parseInt(moment().format('HH'));
-  hourNow = 10;
+  hourNow = 9;
   console.log('hournow',hourNow)
-  for (var i = 0; i < 9; i++) {
+  for (var i = 0; i < hourDays.length; i++) {
+    var test = '#text-area'+i;
+    console.log(test);
     table = document.createElement('tr');
     row = document.createElement('th');
     dataCell = document.createElement('td');
@@ -164,21 +93,29 @@ function createDayTable(){
     table.setAttribute('id','table');
     dataCell.setAttribute('class','future');
     dataCell2.setAttribute('class','saveBtn');
-    
+    //textbox
     var textbox;
     textbox = document.createElement('input');
     textbox.type = 'text';
     textbox.setAttribute('class','textarea');
-
+    textbox.setAttribute('id','text-area'+i);
+    //button
     var btn = document.createElement("button");
     btn.data = "hi";
     btn.innerHTML = 'Save';
-    btn.onclick = function()
-      {
-          alert("hello, world");
-      }
+        btn.onclick = function(event)
+          {
+              // var test = '#text-area'+i;
+              console.log(test);
+              var aTag = event.target.querySelector("#text-area");
+              const val = document.querySelector(test).value;
+              console.log(val,aTag);
+              // projectFormEl = $('#text-area');
+              console.log('new function line 139',event.target);
+          }
     btn.setAttribute('class','saveBtn');
-
+    btn.setAttribute('id','saveButton'+i);
+//check time
     if(hourNow>hourDays[i].index){
       dataCell.setAttribute('class','past');
       textbox.disabled = "disabled";  //when time is passed
@@ -198,7 +135,7 @@ function createDayTable(){
       fUture = false;
     }
     console.log(pAst,fUture,nOw);
-
+//create elements
     row.textContent = hourDays[i].h + ':' + hourDays[i].ap;
     timeTable.appendChild(table);
     table.appendChild(row);
@@ -210,8 +147,22 @@ function createDayTable(){
 
     dataCell2.appendChild(btn);
 //-------------------------------------
-
   }
 }
 //-------------------------------------
 createDayTable();
+
+var btnProject = $('#saveButton2');
+
+console.log(btnProject);
+function handleButton(event) {
+  const val = document.querySelector("#text-area2").value;
+  var aTag = event.target.querySelector("#text-area2");
+  console.log(val);
+  console.log('test handle button function',event.target);
+  var btnClicked = $(event.target);
+  console.log(btnClicked);
+}
+
+btnProject.on('click', handleButton);
+
