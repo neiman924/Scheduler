@@ -1,13 +1,14 @@
+// localStorage.setItem('scoreBoard',JSON.stringify([scoreBoard]));
+// tempData = JSON.parse(localStorage.getItem('scoreBoard'));
 
-// var Button1 = $('#saveBtn0');
-// var Button2 = $('#saveBtn1');
-// var Button3 = $('#saveBtn2');
-// var Button4 = $('#saveBtn3');
-// var Button5 = $('#saveBtn4');
-// var Button6 = $('#saveBtn5');
-// var Button7 = $('#saveBtn6');
-// var Button8 = $('#saveBtn7');
-// var Button9 = $('#saveBtn8');
+
+eventTracker = [];
+if(localStorage.getItem('eventTracker') === null || localStorage.getItem('eventTracker') === undefined)
+{
+  localStorage.setItem("eventTracker" ,JSON.stringify([eventTracker]));
+} else eventTracker = JSON.parse(localStorage.getItem('eventTracker'));
+// if (eventTracker!=null) eventTracker = JSON.parse(eventTracker);
+// else eventTracker = JSON.parse(localStorage.getItem('eventTracker'));
 
 var hourDays = [
   {
@@ -65,11 +66,6 @@ function displayTime() {
   var rightNow = moment().format('MMM DD, YYYY [at] hh:mm:ss a');
   timeDisplayEl.text(rightNow);
 }
-
-
-
-
-
 //-------------------------------------
 function createDayTable(){
   var nOw=false,pAst=false,fUture=false;
@@ -79,15 +75,14 @@ function createDayTable(){
   var hourNow = parseInt(moment().format('HH'));
   hourNow = 9;
   console.log('hournow',hourNow)
+
   for (var i = 0; i < hourDays.length; i++) {
-    var test = '#text-area'+i;
-    console.log(test);
+
     table = document.createElement('tr');
     row = document.createElement('th');
     dataCell = document.createElement('td');
     dataCell2 = document.createElement('td');
 
-    // table.setAttribute('class','future');
     row.setAttribute('id','calendar-row');
     row.setAttribute('style','width: 5%');
     table.setAttribute('id','table');
@@ -97,22 +92,24 @@ function createDayTable(){
     var textbox;
     textbox = document.createElement('input');
     textbox.type = 'text';
+    if (eventTracker[i] != undefined) textbox.value = eventTracker[i];
+    // textbox.value = eventTracker[i];
+    console.log(eventTracker[i],i,'X');
     textbox.setAttribute('class','textarea');
     textbox.setAttribute('id','text-area'+i);
     //button
     var btn = document.createElement("button");
     btn.data = "hi";
     btn.innerHTML = 'Save';
-        btn.onclick = function(event)
-          {
-              // var test = '#text-area'+i;
-              console.log(test);
-              var aTag = event.target.querySelector("#text-area");
-              const val = document.querySelector(test).value;
-              console.log(val,aTag);
-              // projectFormEl = $('#text-area');
-              console.log('new function line 139',event.target);
-          }
+        // btn.onclick = function(event)
+        //   {
+        //       var test = "#text-area"+i;
+        //       console.log(i);
+        //       console.log('X',document.querySelector(test).value);
+        //       var aTag = document.querySelector("#text-area"+i);
+        //       projectFormEl = $('#text-area');
+        //       console.log('new function line 139',aTag);
+        //   }
     btn.setAttribute('class','saveBtn');
     btn.setAttribute('id','saveButton'+i);
 //check time
@@ -144,25 +141,103 @@ function createDayTable(){
     dataCell.appendChild(textbox); 
     table.appendChild(dataCell2);
 //-------------------------------------
-
     dataCell2.appendChild(btn);
 //-------------------------------------
   }
 }
 //-------------------------------------
 createDayTable();
-
-var btnProject = $('#saveButton2');
-
-console.log(btnProject);
-function handleButton(event) {
-  const val = document.querySelector("#text-area2").value;
-  var aTag = event.target.querySelector("#text-area2");
+//-------------------------------------
+var btnProject0 = $('#saveButton0');
+function handleButton0(event) {
+  const val = document.querySelector("#text-area0").value;
   console.log(val);
-  console.log('test handle button function',event.target);
-  var btnClicked = $(event.target);
-  console.log(btnClicked);
+  eventTracker[0]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
 }
+btnProject0.on('click', handleButton0);
+//-------------------------------------
+var btnProject1 = $('#saveButton1');
 
-btnProject.on('click', handleButton);
+function handleButton1(event) {
+  const val = document.querySelector("#text-area1").value;
+  console.log(val);
+  eventTracker[1]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject1.on('click', handleButton1);
+//-------------------------------------
+var btnProject2 = $('#saveButton2');
+function handleButton2(event) {
+  const val = document.querySelector("#text-area2").value;
+  console.log(val);
+  eventTracker[2]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject2.on('click', handleButton2);
+//-------------------------------------
+var btnProject3 = $('#saveButton3');
+function handleButton3(event) {
+  const val = document.querySelector("#text-area3").value;
+  console.log(val);
+  eventTracker[3]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject3.on('click', handleButton3);
+//-------------------------------------
+var btnProject4 = $('#saveButton4');
+function handleButton4(event) {
+  const val = document.querySelector("#text-area4").value;
+  console.log(val);
+  eventTracker[4]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject4.on('click', handleButton4);
+//-------------------------------------
+var btnProject5 = $('#saveButton5');
+
+function handleButton5(event) {
+  const val = document.querySelector("#text-area5").value;
+  console.log(val);
+  eventTracker[5]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject5.on('click', handleButton5);
+//-------------------------------------
+var btnProject6 = $('#saveButton6');
+function handleButton6(event) {
+  const val = document.querySelector("#text-area6").value;
+  console.log(val);
+  eventTracker[6]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject6.on('click', handleButton6);
+//-------------------------------------
+var btnProject7 = $('#saveButton7');
+function handleButton7(event) {
+  const val = document.querySelector("#text-area7").value;
+  console.log(val);
+  eventTracker[7]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject7.on('click', handleButton7);
+//-------------------------------------
+var btnProject8 = $('#saveButton8');
+function handleButton8(event) {
+  const val = document.querySelector("#text-area8").value;
+  console.log(val);
+  eventTracker[8]=val;
+  localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
+}
+btnProject8.on('click', handleButton8);
+//-------------------------------------
+// var btnProject9 = $('#saveButton9');
+// function handleButton9(event) {
+//   const val = document.querySelector("#text-area9").value;
+//   console.log(val);
+//   eventTracker[9]=val;
+//   localStorage.setItem("eventTracker" ,JSON.stringify([eventTracker]));
+// }
+// btnProject9.on('click', handleButton9);
+setInterval(displayTime, 1000);
 
