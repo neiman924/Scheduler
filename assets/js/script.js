@@ -1,15 +1,11 @@
-// localStorage.setItem('scoreBoard',JSON.stringify([scoreBoard]));
-// tempData = JSON.parse(localStorage.getItem('scoreBoard'));
-
-
+//------------local storage variable define--------------------------
 eventTracker = [];
+//-------------check if local variable is already created or not-----
 if(localStorage.getItem('eventTracker') === null || localStorage.getItem('eventTracker') === undefined)
 {
   localStorage.setItem("eventTracker" ,JSON.stringify([eventTracker]));
 } else eventTracker = JSON.parse(localStorage.getItem('eventTracker'));
-// if (eventTracker!=null) eventTracker = JSON.parse(eventTracker);
-// else eventTracker = JSON.parse(localStorage.getItem('eventTracker'));
-
+//----------------object to hold day----------------------------------
 var hourDays = [
   {
   h:09,
@@ -43,37 +39,23 @@ var hourDays = [
   index:17}
 ];
 //------------------------------
-var timeTable = document.getElementById('timeTable');
-var Table = document.getElementById('table');
-var calendarRow = document.getElementById('textBox');
-//------------------------------
-var localSchdularObj = [{
-  // index,
-  // time,
-  // content
-}];
-//------------------------------
-// save reference to important DOM elements
 var timeDisplayEl = $('#time-display');
-var projectDisplayEl = $('#project-display');
-var projectModalEl = $('#project-modal');
-
-var projectFormEl = $('#text-area');
-
-var projectNameInputEl = $('#project-name-input');
-
+//var projectFormEl = $('#text-area');//used for anoder tries 
+//----------------------display time function-------------------------------
 function displayTime() {
   var rightNow = moment().format('MMM DD, YYYY [at] hh:mm:ss a');
   timeDisplayEl.text(rightNow);
 }
-//-------------------------------------
+//----------------------create day table------------------------------------
 function createDayTable(){
   var nOw=false,pAst=false,fUture=false;
   var table;
   var row;
   var dataCell;
   var hourNow = parseInt(moment().format('HH'));
-  hourNow = 9;
+  //-----------------to set time manually -----------------------------------
+  //  hourNow = 11;
+  //---------------------------------------------------------------------- 
   console.log('hournow',hourNow)
 
   for (var i = 0; i < hourDays.length; i++) {
@@ -101,6 +83,7 @@ function createDayTable(){
     var btn = document.createElement("button");
     btn.data = "hi";
     btn.innerHTML = 'Save';
+//----------function to load btn in the for loop but it didnt work------------------------
         // btn.onclick = function(event)
         //   {
         //       var test = "#text-area"+i;
@@ -110,9 +93,10 @@ function createDayTable(){
         //       projectFormEl = $('#text-area');
         //       console.log('new function line 139',aTag);
         //   }
+//----------------------------------------------------------------------
     btn.setAttribute('class','saveBtn');
     btn.setAttribute('id','saveButton'+i);
-//check time
+//-----------------check time to select right class---------------------
     if(hourNow>hourDays[i].index){
       dataCell.setAttribute('class','past');
       textbox.disabled = "disabled";  //when time is passed
@@ -131,8 +115,7 @@ function createDayTable(){
       now = true;
       fUture = false;
     }
-    console.log(pAst,fUture,nOw);
-//create elements
+//-------------------append the table----------------------------------
     row.textContent = hourDays[i].h + ':' + hourDays[i].ap;
     timeTable.appendChild(table);
     table.appendChild(row);
@@ -145,9 +128,9 @@ function createDayTable(){
 //-------------------------------------
   }
 }
-//-------------------------------------
+//----------calling the createdaytable function-------------------
 createDayTable();
-//-------------------------------------
+//-------------------handeling the buttons manually------------------
 var btnProject0 = $('#saveButton0');
 function handleButton0(event) {
   const val = document.querySelector("#text-area0").value;
@@ -230,14 +213,7 @@ function handleButton8(event) {
   localStorage.setItem("eventTracker" ,JSON.stringify(eventTracker));
 }
 btnProject8.on('click', handleButton8);
-//-------------------------------------
-// var btnProject9 = $('#saveButton9');
-// function handleButton9(event) {
-//   const val = document.querySelector("#text-area9").value;
-//   console.log(val);
-//   eventTracker[9]=val;
-//   localStorage.setItem("eventTracker" ,JSON.stringify([eventTracker]));
-// }
-// btnProject9.on('click', handleButton9);
+//---------handeling the live time in the page --------------------
 setInterval(displayTime, 1000);
+//----------------------------------------------------------------------
 
